@@ -1,0 +1,31 @@
+--Create a clothing store database
+
+CREATE TABLE my_store (id INTEGER PRIMARY KEY, name TEXT, aisle INTEGER, price INTEGER, quantity_sold INTEGER);
+
+INSERT INTO my_store VALUES (1, "jeans", 1, 30, 50);
+INSERT INTO my_store VALUES (2, "dresses", 2, 50, 60);
+INSERT INTO my_store VALUES (3, "shirts", 3, 20, 80);
+INSERT INTO my_store VALUES (4, "shoes", 4, 60, 100);
+INSERT INTO my_store VALUES (5, "panties", 5, 15, 100);
+INSERT INTO my_store VALUES (6, "bras", 6, 30, 90);
+INSERT INTO my_store VALUES (7, "sweatpants", 7, 40, 100);
+INSERT INTO my_store VALUES (8, "pijamas", 8, 30, 100);
+INSERT INTO my_store VALUES (9, "shorts", 9, 45, 120);
+INSERT INTO my_store VALUES (10, "skirts", 10, 55, 110);
+INSERT INTO my_store VALUES (11, "socks", 11, 10, 150);
+INSERT INTO my_store VALUES (12, "swimsuits", 12, 45, 70);
+INSERT INTO my_store VALUES (13, "formal gowns", 13, 100, 70);
+INSERT INTO my_store VALUES (14, "accessories", 14, 55, 130);
+INSERT INTO my_store VALUES (15, "sweaters", 15, 65, 125);
+
+--Display the Database ordered by price
+SELECT * FROM my_store ORDER BY price;
+
+--What items have a price less than 50 dollars?
+SELECT * FROM my_store WHERE price < 50 ORDER BY price;
+
+--What was the total quantity of items sold?
+SELECT SUM (quantity_sold) FROM my_store;
+
+--What item had the highest quantity sold?
+SELECT name, MAX (quantity_sold) FROM my_store;
