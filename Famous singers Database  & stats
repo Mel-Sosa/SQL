@@ -1,0 +1,46 @@
+
+--Create various tables to display data about a group of singers, their songs and duets.
+
+CREATE TABLE singers (id INTEGER PRIMARY KEY, name TEXT, style TEXT, nationality TEXT);
+
+INSERT INTO singers VALUES (1, "Karol G", "urban", "colombian");
+INSERT INTO singers VALUES (2, "Shakira", "pop", "colombian");
+INSERT INTO singers VALUES (3, "Bad Bunny", "urban", "puerto rican");
+INSERT INTO singers VALUES (4, "Mana", "pop", "mexican");
+INSERT INTO singers VALUES (5, "Romeo Santos", "bachata", "dominican");
+
+CREATE TABLE songs (id INTEGER PRIMARY KEY, "name" TEXT, "singer_id" INTEGER);
+
+INSERT INTO songs VALUES (1, "ahora me llama", 1);
+INSERT INTO songs VALUES (2, "TQG", 1);
+INSERT INTO songs VALUES (3, "Monotonia", 2);
+INSERT INTO songs VALUES (4, "Mi verdad", 2);
+INSERT INTO songs VALUES (5, "Ojitos lindos", 3);
+INSERT INTO songs VALUES (6, "Rayando el sol", 4);
+INSERT INTO songs VALUES (7, "X si volvemos", 5);
+INSERT INTO songs VALUES (8, "Volvi", 5);
+
+CREATE TABLE duets (id INTEGER PRIMARY KEY, "singer1_id" INTEGER, "singer2_id" INTEGER);
+
+INSERT INTO duets VALUES (1, 1, 3);
+INSERT INTO duets VALUES (2, 1, 2);
+INSERT INTO duets VALUES (4, 2, 4);
+INSERT INTO duets VALUES (7, 1, 5);
+INSERT INTO duets VALUES (8, 3, 5);
+
+--Use join clause to display rows with singer names, styles and songs
+SELECT singers.name, singers.style, songs.name AS song FROM singers JOIN songs ON singers.id = songs.singer_id;
+
+--Filter data from singers table with multiple conditions to show only info from singers with urban or pop styles.
+SELECT singers.name, singers.style, singers.nationality FROM singers WHERE style = "urban" OR style = "pop" ORDER BY style;
+
+-- Use Join clause to display the names of singers with duets and the title of the duet
+SELECT a.name AS singer_1, b.name AS singer_2, songs.name AS duet FROM duets JOIN singers a ON duets.singer1_id = a.id
+JOIN singers b on duets.singer2_id = b.id
+JOIN songs ON duets.id = songs.id;
+
+
+
+
+
+
