@@ -1,0 +1,28 @@
+-- In this SQL I'm querying a database with Formula 1 data to answer specific questions about the data.
+
+#1. How many races have taken place in the Australian Grand Prix after the year 2009?
+SELECT COUNT(raceId) FROM Formula1_DB.races
+WHERE name = 'Australian Grand Prix' AND year > 2009;
+
+#2. Which Formula 1 circuits are located in France?
+SELECT name, location, country FROM Formula1_DB.circuits WHERE country = 'France';
+
+#3. List the drivers that participated in the Monaco Grand Prix, along with their ranks and order them by their race position.
+SELECT D.surname, D.forename, R.position, R.rank FROM Formula1_DB.drivers D
+LEFT JOIN Formula1_DB.results R ON D.driverId = R.driverId
+WHERE R.raceId = 6 ORDER BY R.position
+
+#4. Who is the driver with the fastest lap time?
+SELECT D.surname, D.forename, R.fastestLapTime FROM Formula1_DB.drivers D
+JOIN Formula1_DB.results R ON D.driverId = R.driverId
+WHERE R.fastestLapTime <>'' ORDER BY R.fastestLapTime asc LIMIT 1
+
+#5. What is the average lap speed by driver? (List the driver name and the average lap speed)
+SELECT D.surname, AVG(fastestLapSpeed) AS Avg_Lapspeed FROM Formula1_DB.drivers D
+JOIN Formula1_DB.results R ON D.driverId = R.driverId
+WHERE R.fastestLapSpeed <>'' GROUP BY D.surname;
+
+#6. What is the average points by driver that positioned in 1st place? List the drivers ordered by most avg points to least. 
+SELECT D.surname, AVG(points) FROM Formula1_DB.drivers D
+JOIN Formula1_DB.results R ON D.driverId = R.driverId
+WHERE R.position = 1 GROUP BY D.surname ORDER BY AVG(points) desc;
