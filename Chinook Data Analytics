@@ -1,0 +1,61 @@
+-- In this SQL project I am querying a database called Chinook, which represents a digital media store to answer certain questions related to the dataset.
+
+#1. List Customers (full names, customer ID and country) who are only in the US.
+
+SELECT CustomerId, FirstName, LastName, Country FROM chinook.customers WHERE Country = 'USA';
+
+#2. List the information (full names, customer ID and country) for all Customers that are not in Canada.
+
+SELECT CustomerId, Firstname, LastName, Country FROM chinook.customers WHERE Country <> 'Canada';
+
+#3. Find the Invoices of customers who are from USA. The resulting table should show the
+customer's full name, Invoice ID, Date of the invoice and billing country.
+
+SELECT C.Firstname, C.LastName, I.InvoiceId, I.InvoiceDate, I.BillingCountry
+FROM chinook.customers C LEFT JOIN chinook.invoices I
+ON C.CustomerId = I.CustomerId WHERE C.Country = 'USA';
+
+#4. Show the Employees who are Sales Support Agents.
+
+SELECT FirstName, LastName, Title FROM chinook.employees WHERE Title = 'Sales Support Agent';
+
+#5. Find a unique/distinct list of billing countries from the Invoice table, ordered by country.
+
+SELECT distinct BillingCountry FROM chinook.invoices ORDER BY BillingCountry;
+
+#6. Provide a query that shows the invoices associated with each sales agent.
+The resulting table should include the Sales Agent's full name and email.
+
+SELECT E.LastName, E.FirstName, E.email, I.InvoiceId FROM chinook.employees E
+JOIN chinook.customers C ON C.SupportRepId = E.EmployeeId
+JOIN chinook.invoices I ON I.CustomerId = C.CustomerId;
+
+#7. Show the Invoice Total, Customer name, Country and Sales Agent name for all invoices and customers.
+
+SELECT I.Total, C.FirstName, C.LastName, C.Country, E.FirstName, E.LastName FROM chinook.customers C
+JOIN chinook.invoices I ON I.CustomerId = C.CustomerId
+JOIN chinook.employees E ON E.EmployeeId = C.SupportRepId;
+
+#8. How many invoices were there on the year 2010?
+SELECT COUNT(*) FROM chinook.invoices WHERE InvoiceDate BETWEEN '2010-01-01' AND '2010-12-31'
+
+#9. Show a list of the artists and their albums, sorted by artist.
+
+SELECT Art.Name, Alb.Title FROM chinook.artists Art
+JOIN chinook.albums Alb ON Art.ArtistId = Alb.ArtistId ORDER BY Art.Name
+
+#10. Show all the track names along with their genre, album and unit price.
+
+SELECT T.Name AS track, Alb.Title AS Album, G.Name AS genre, T.UnitPrice FROM chinook.albums Alb
+JOIN chinook.tracks T ON T.AlbumId = Alb.AlbumId
+JOIN chinook.genres G ON G.GenreId = T.GenreId;
+
+#11. Show the total sales made by each sales support agent.
+
+SELECT E.FirstName, E.LastName, ROUND(SUM(I.Total)) AS total_sales FROM chinook.employees E
+JOIN chinook.customers C ON C.SupportRepId = E.EmployeeId 
+JOIN chinook.invoices I ON I.CustomerId = C.CustomerId WHERE E.Title = 'Sales Support Agent' GROUP BY E.FirstName;
+
+#12. Show the total sales made in 2010.
+SELECT ROUND(SUM(Total), 2) AS total_sales FROM chinook.invoices
+WHERE InvoiceDate BETWEEN '2010-01-01' AND '2010-12-31';
