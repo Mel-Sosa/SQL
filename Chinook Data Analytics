@@ -37,7 +37,8 @@ JOIN chinook.invoices I ON I.CustomerId = C.CustomerId
 JOIN chinook.employees E ON E.EmployeeId = C.SupportRepId;
 
 #8. How many invoices were there on the year 2010?
-SELECT COUNT(*) FROM chinook.invoices WHERE InvoiceDate BETWEEN '2010-01-01' AND '2010-12-31'
+
+SELECT COUNT(*) FROM chinook.invoices WHERE InvoiceDate LIKE '%2009%';
 
 #9. Show a list of the artists and their albums, sorted by artist.
 
@@ -57,5 +58,19 @@ JOIN chinook.customers C ON C.SupportRepId = E.EmployeeId
 JOIN chinook.invoices I ON I.CustomerId = C.CustomerId WHERE E.Title = 'Sales Support Agent' GROUP BY E.FirstName;
 
 #12. Show the total sales made in 2010.
-SELECT ROUND(SUM(Total), 2) AS total_sales FROM chinook.invoices
-WHERE InvoiceDate BETWEEN '2010-01-01' AND '2010-12-31';
+
+SELECT ROUND(SUM(Total),2) AS Total_sales FROM chinook.invoices WHERE InvoiceDate LIKE '%2010%';
+
+#13. Write a query that includes the purchased track name and artist name with each invoice line ID.
+
+SELECT I.InvoiceLineId, T.Name AS track, A.Name AS Artist FROM chinook.invoice_items I
+JOIN chinook.tracks T ON T.TrackId = I.TrackId
+JOIN chinook.albums Alb ON Alb.AlbumId = T.AlbumId
+JOIN chinook.artists A ON A.ArtistId = Alb.ArtistId;
+
+#14. Provide a query that shows all the Tracks, and include the Album name, Media type, and Genre.
+
+SELECT T.Name AS Track, Alb.Title AS Album, M.Name AS Media_type, G.Name AS Genre FROM chinook.tracks T
+JOIN chinook.albums Alb ON Alb.AlbumId = T.AlbumId
+JOIN chinook.media_types M ON M.MediaTypeId = T.MediaTypeId
+JOIN chinook.genres G ON G.GenreId = T.GenreId
