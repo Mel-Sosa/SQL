@@ -1,5 +1,5 @@
 --In this SQL project, I used Spotify data from Kaggle and then used SQL to create a table and insert this info into it. 
-Source(https://www.kaggle.com/datasets/equinxx/spotify-top-50-songs-in-2021?select=spotify_top50_2021.csv)
+Source (https://www.kaggle.com/datasets/equinxx/spotify-top-50-songs-in-2021?select=spotify_top50_2021.csv)
 
 CREATE TABLE BIT_DB.Spotifydata (
 id integer PRIMARY KEY,
