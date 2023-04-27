@@ -29,3 +29,13 @@ SELECT SUM (quantity_sold) FROM my_store;
 
 --What item had the highest quantity sold?
 SELECT name, MAX (quantity_sold) FROM my_store;
+
+--What was the average quantity sold?
+SELECT AVG(quantity_sold) FROM my_store;
+
+--What product had the highest revenue?
+SELECT name, SUM(quantity_sold)*price AS Product_revenue
+FROM my_store GROUP BY name ORDER BY Product_revenue desc LIMIT 1;
+
+--What were the total sales for the clothing store?
+SELECT SUM(price*quantity_sold) AS Total_sales FROM my_store
