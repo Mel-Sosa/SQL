@@ -1,4 +1,4 @@
---In this SQL code I queried a database holding data from customer orders and monthly sales to answer specific questions about the data
+--In this SQL code I queried an electronics store database holding customer orders and monthly sales data.
 
 #1. How many orders were placed in January?
 SELECT COUNT(orderID) FROM BIT_DB.JanSales
